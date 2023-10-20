@@ -1,0 +1,15 @@
+
+
+CREATE COMPUTE MODULE PutFlow_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- Give the consumer a chance to start before we publish anything
+		SET OutputLocalEnvironment.dummy = SLEEP(1000);
+		
+		SET OutputRoot.Properties = InputProperties;
+		SET OutputRoot.JSON.Data.hello = 'world';
+		
+		LOG EVENT SEVERITY 1 CATALOG 'BIPmsgs' MESSAGE 8099 VALUES('Publishing JMS message', 'amq.topic', '');
+		RETURN TRUE;
+	END;
+END MODULE;
