@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <policies>
   <policy policyType="JMSProviders" policyName="JMSProvider" policyTemplate="ActiveMQ">
-    <jarsURL>c:\tmp\apache-qpid-jms-1.10.0\lib\qpid-jms-client-1.10.0.jar</jarsURL>
+    <jarsURL></jarsURL>
     <nativeLibs>default_Path</nativeLibs>
     <proprietaryAPIHandler>default_none</proprietaryAPIHandler>
     <proprietaryAPIAttr1>default_none</proprietaryAPIAttr1>
@@ -12,7 +12,7 @@
     <jndiEnvironmentParms>default_none</jndiEnvironmentParms>
     <clientAckBatchSize>0</clientAckBatchSize>
     <clientAckBatchTime>0</clientAckBatchTime>
-    <jndiBindingsLocation>c:\tmp\apache-qpid-jndi.properties</jndiBindingsLocation>
+    <jndiBindingsLocation>/tmp/apache-qpid-jndi.properties</jndiBindingsLocation>
     <initialContextFactory>org.apache.qpid.jms.jndi.JmsInitialContextFactory</initialContextFactory>
     <jmsAsyncExceptionHandling>false</jmsAsyncExceptionHandling>
     <connectionFactoryName></connectionFactoryName>

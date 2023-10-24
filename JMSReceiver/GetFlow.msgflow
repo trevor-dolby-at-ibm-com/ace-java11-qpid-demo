@@ -9,7 +9,7 @@
       <nodes xmi:type="ComIbmJMSClientInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="41,117" topic="testTopicLookup" jmsProviderName="{ApacheQpidPolicies}:JMSProvider" initialContextFactory="org.apache.qpid.jms.jndi.JmsInitialContextFactory" connectionFactoryName="demoCF" messageDomainProperty="JSON">
         <translation xmi:type="utility:ConstantString" string="JMS Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="297,118" destination="localError" pattern="Received message:&#xD;&#xA;${Root.JSON}" messageNumber="8099">
+      <nodes xmi:type="ComIbmTrace.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="297,118" destination="localError" pattern="JMSReceiver received message:&#xD;&#xA;${Root.JSON}" messageNumber="8099">
         <translation xmi:type="utility:ConstantString" string="Trace"/>
       </nodes>
       <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_1" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_1" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
