@@ -2,6 +2,9 @@
 
 export DOWNLOAD_CONNECTION_COUNT=5
 
+mkdir /home/aceuser/qpid
+cd /home/aceuser/qpid
+
 curl=0
 which aria2c > /dev/null 2>&1
 if [ "$?" == "0" ]; then

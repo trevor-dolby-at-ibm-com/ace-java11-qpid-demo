@@ -10,22 +10,19 @@ ARG LICENSE
 # docker build --build-arg LICENSE=accept --build-arg BASE_IMAGE=cp.icr.io/cp/appc/ace:12.0.10.0-r1 -t ace-java11-qpid-demo .
 # docker run -e LICENSE=accept --rm -ti ace-java11-qpid-demo
 
-
-# This section is needed to avoid issues with ubi8-minimal not having tar . . .
-COPY scripts/install-prereqs.sh /tmp/install-prereqs.sh
-USER 0
-RUN bash /tmp/install-prereqs.sh
-# aceuser
-USER 1001
-
-COPY scripts/download-qpid.sh /tmp/download-qpid.sh
-RUN mkdir /home/aceuser/qpid
-WORKDIR /home/aceuser/qpid
-RUN bash /tmp/download-qpid.sh
-
 # Hacky way to get all the projects into the build container without naming them . . .
 WORKDIR /tmp/build
 COPY . .
+
+# This section is needed to avoid issues with ubi8-minimal not having tar . . .
+USER 0
+RUN bash /tmp/build/scripts/install-prereqs.sh
+# aceuser
+USER 1001
+
+# Download Qpid broker and JMS client
+RUN bash /tmp/build/scripts/download-qpid.sh
+
 #
 # Build the application and run the unit tests; this does not requires Java11
 #
@@ -40,13 +37,12 @@ RUN bash -c "export LICENSE=${LICENSE} && /tmp/build/scripts/build-and-ut.sh"
 RUN bash -c "export LICENSE=${LICENSE} ; . /opt/ibm/ace-12/server/bin/mqsiprofile ; \
     ibmint specify jre --version 11 --work-dir /home/aceuser/ace-server"
 
-
 # Qpid setup files
 COPY apache-qpid-jndi.properties /tmp
-COPY scripts/start-qpid-broker-and-set-password.sh /tmp/
 
 # Set entrypoint to start the Qpid broker (plus calling mqsisetdbparms to
 # set the connection password) and run the server
 ENTRYPOINT ["bash", "-c", ". /opt/ibm/ace-12/server/bin/mqsiprofile ; \
-  /tmp/start-qpid-broker-and-set-password.sh && \
+  /tmp/build/scripts/start-qpid-broker-and-set-password.sh && \
+  echo 'Starting IntegrationServer' && \
   IntegrationServer -w /home/aceuser/ace-server"]

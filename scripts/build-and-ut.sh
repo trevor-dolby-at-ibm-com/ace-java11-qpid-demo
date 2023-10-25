@@ -30,7 +30,7 @@ ibmint optimize server --work-directory /home/aceuser/ace-server
 
 # Run the server to run the unit tests - note that this should not require Java11
 # as it will only run unit tests rather than actually using JMS.
-IntegrationServer -w /home/aceuser/ace-server --test-project JMSSender_UnitTest 
+IntegrationServer -w /home/aceuser/ace-server --test-project JMSSender_UnitTest --start-msgflows false
 
 # Remove the test project - see comment above
 rm -rf /home/aceuser/ace-server/run/JMSSender_UnitTest
